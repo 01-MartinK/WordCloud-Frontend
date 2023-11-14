@@ -4,21 +4,30 @@ import "./style.scss";
 
 export default class FileDropzone extends Component {
   dropHandler = (e) => {
+    const allowedTypes = ['text/plain', 'application/json', 'application/msword'];
+
     const fileInput = document.querySelector(".fileInput");
+    
     console.log("file dropped");
     e.preventDefault();
 
+    document.querySelector("#dropZone").classList.remove("entered");
+
     if (e.dataTransfer.items) {
       [...e.dataTransfer.items].forEach((item, i) => {
-        if (item.kind == "file") {
+        if (item.kind == "file" && allowedTypes.includes(item.type)) {
           const file = item.getAsFile();
 
           fileInput.file = file;
 
+          console.log(file.type);
+          
+          document.querySelector('.error').style.display = "none"
           document.querySelector(".filename").textContent = file.name;
-          document.querySelector("#dropZone").classList.remove("entered");
 
           console.log(`... file[${i}].name = ${file.name}`);
+        }else {
+          document.querySelector('.error').style.display = "block"
         }
       });
     } else {
@@ -72,6 +81,7 @@ export default class FileDropzone extends Component {
         <label className="uploadBtn" htmlFor="file">
           Upload
         </label>
+        <p className="error">Not supported</p>
       </div>
     );
   }

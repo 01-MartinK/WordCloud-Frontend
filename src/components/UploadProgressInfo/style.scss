@@ -1,0 +1,21 @@
+.progressInfo {
+    .progressbar {
+        width: 32em;
+        height: 2em;
+        background-color: gainsboro;
+        border-radius: 2em;
+        .progress {
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right,#2ecc71,#58d68d);
+            border-radius: 2em;
+            border: 1px solid black;
+            box-shadow: inset 0px 0px 3px black;
+        }
+        p {
+            font-weight: bold;
+            position: relative;
+            transform: translateY(-200%);
+        }
+    }
+}

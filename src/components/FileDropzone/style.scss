@@ -27,6 +27,12 @@
             color: black;
         }
     }
+    .error {
+        display: none;
+        color: red;
+        font-weight: bold;
+        font-size: small;
+    }
 }
 
 .entered {
