@@ -7,7 +7,6 @@
   text-align: center;
 }
 
-
 .access {
   display: flex;
   width: 32em;
@@ -20,12 +19,15 @@
 }
 
 .textarea {
+  box-sizing: border-box;
   resize: vertical;
+  transition-duration: 0.1s;
   width: 100%;
-  height: 8em;
-  padding: 1em;
+  height: auto;
+  padding: 0.5em;
   margin-bottom: 1em;
   border: none;
-  background-color: gainsboro;
   border-radius: 8px;
+  background-color: gainsboro;
+  font-size: 2.1vh;
 }

@@ -1,32 +1,24 @@
-import logo from './logo.svg';
-import './App.scss';
+import { FormLabel, Button } from '@mui/joy'
 
-import FileDropzone from './components/FileDropzone';
-
-import { FormControl, FormLabel, Input, Button, Textarea } from '@mui/joy';
+import FileDropzone from './components/FileDropzone'
+import AccessCodeInput from './components/AccessCodeInput'
+import './App.scss'
 
 function App() {
   return (
     <div className="App">
-      <div className='main'>
-        <FormControl className="access" >
-          <FormLabel>Access Code</FormLabel>
-          <Input type="text" placeholder='Access Code' />
-          <Button>Get Data</Button>
-        </FormControl>
-        <div className='deliminer' />
+      <form className="main">
+        <AccessCodeInput />
+        <div className="deliminer" />
         <FormLabel>Upload File</FormLabel>
         <FileDropzone />
         <FormLabel>Write a sentence</FormLabel>
         <textarea className="textarea"></textarea>
         <br />
-        <Button>Analyze Text</Button>
-      </div>
-      <div className='output'>
-
-      </div>
+        <Button style={{marginBottom: "2em"}}>Analyze Text</Button>
+      </form>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
