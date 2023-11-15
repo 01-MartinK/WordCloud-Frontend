@@ -25,11 +25,11 @@ function App() {
   return (
     <div className="App">
       <TextInfo />
-      <form className="main">
+      <div className="main">
         <div className="deliminer" />
         <WordInputUpload showButton={(progress === 0)} onUpdateProgress={updateProgressBar} onCompletedLoad={completedSend}/>
         {(progress !== 0) ? <UploadProgressInfo progress={progress} status={status} showAccessCode={false}/> : null}
-      </form>
+      </div>
     </div>
   )
 }

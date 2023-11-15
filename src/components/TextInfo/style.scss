@@ -1,0 +1,9 @@
+.textInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    #status[textContent="Showing"] {
+        background-color: red;
+    }
+}
