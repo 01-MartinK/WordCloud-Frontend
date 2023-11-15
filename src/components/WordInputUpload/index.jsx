@@ -6,8 +6,20 @@ import "./style.scss";
 
 export default class WordInputUpload extends Component {
 
+  getExcludedWords = () => {
+    const input = document.querySelector('#excludedWords').value
+    if (input !== ""){
+      let cleaned = input.replaceAll(" ", "");
+      const list = cleaned.split(",");
+      return list;
+    }
+    return null;
+  }
+
   uploadFile = () => {
     const file = document.querySelector(".fileInput").files[0];
+
+    console.log(this.getExcludedWords());
 
     // error message element
     const errorMessage = document.querySelector("#sizeError");
@@ -25,6 +37,12 @@ export default class WordInputUpload extends Component {
       // for sending the file
       const data = new FormData();
       data.append("document", file);
+      
+      let excluded = this.getExcludedWords()
+      if (excluded != null)
+        data.append("list", excluded);
+
+      console.log(data);
 
       // progress bar progression
       xhr.upload.addEventListener("progress", (e) => {
@@ -38,11 +56,16 @@ export default class WordInputUpload extends Component {
 
       // error message
       xhr.upload.addEventListener("error", (e) => {
+        errorMessage.textContent = "File exceeds 100mb"
         errorMessage.style.display = "block";
       });
 
       // xhr request completed
       xhr.onreadystatechange = () => {
+        if (xhr.status === 400) {
+          errorMessage.textContent = "Server side Error"
+          errorMessage.style.display = "block";
+        }
         if (xhr.readyState === 4) {
           console.log(xhr.response);
           window.alert(
@@ -63,7 +86,7 @@ export default class WordInputUpload extends Component {
         <FormLabel>Upload File</FormLabel>
         <FileDropzone />
         <h4 style={{textAlign: "left"}}>Excluded words</h4>
-        <Input style={{marginBottom: "1em"}}/>
+        <Input style={{marginBottom: "1em"}} id="excludedWords"/>
         <p id="sizeError" className="error">
           Your file exceeds 100mb
         </p>
