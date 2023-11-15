@@ -20,6 +20,7 @@ const wordcloud_options = {
 }
 
 export default class TextInfo extends Component {
+
     constructor(props){
         super(props)
         this.state = {
@@ -28,12 +29,21 @@ export default class TextInfo extends Component {
     }
 
     getWordList = async (id) => {
+        // warning label
+        const label = document.querySelector("#status")
+
+        if (id === ""){ // empty id check
+            label.textContent = "Access Code Field can't be empty"
+            label.style.backgroundColor = "red";
+            return
+        }
+
         const response = await fetch(`http://localhost:8080/list/${id}`, {
             method: "GET",
             mode: "cors",
         })
         const result = await response.json() // convert response to json
-        const label = document.querySelector("#status")
+        
 
         this.setState({ // reset the word list
             words: []
@@ -41,21 +51,29 @@ export default class TextInfo extends Component {
 
         if (result.status === 2){ // check status and display
             label.textContent = "Showing"
+            label.style.backgroundColor  = "cyan";
             this.setState({
                 words: JSON.parse(result.wordList)
             })
         }else{ // if not completed
-            if (result.status === 0)
+            if (result.status === 0){
                 label.textContent = "Pending";
-            if (result.status === 1)
+                label.style.backgroundColor = "yellow";
+            }
+            if (result.status === 1){
                 label.textContent = "In Progress";
-            if (result.status === -1)
+                label.style.backgroundColor = "greenyellow";
+            }
+            if (result.status === -1){
                 label.textContent = "Error occured"
+                label.style.backgroundColor = "red";
+            }
         }
 
         // report error if not received word list
         if (response.status === 500){
             label.textContent = "No wordlist with that indentifier!"
+            label.style.backgroundColor = "red";
         }
     }
 
@@ -66,7 +84,7 @@ export default class TextInfo extends Component {
                         <ReactWordcloud className="wordcloud" options={wordcloud_options} words={this.state.words} />
                     </div> : null }
                 <p id="status"></p>
-                <AccessCodeInput callGet={this.getWordList}/>
+                <AccessCodeInput callWordlistFetch={this.getWordList}/>
             </div>
         );
     }

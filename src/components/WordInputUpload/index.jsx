@@ -5,34 +5,43 @@ import FileDropzone from "../FileDropzone";
 import "./style.scss";
 
 export default class WordInputUpload extends Component {
+
   uploadFile = () => {
     const file = document.querySelector(".fileInput").files[0];
 
+    // error message element
     const errorMessage = document.querySelector("#sizeError");
 
+    // check if file exists
     if (file != null) {
       const url = "http://localhost:8080/upload";
       const method = "post";
 
       errorMessage.style.display = "none";
 
+      // using XMLHttpRequest for some reason
       const xhr = new XMLHttpRequest();
 
+      // for sending the file
       const data = new FormData();
       data.append("document", file);
 
+      // progress bar progression
       xhr.upload.addEventListener("progress", (e) => {
         this.props.onUpdateProgress(e.loaded, e.total);
       });
 
+      // file uploaded
       xhr.upload.addEventListener("loadend", (e) => {
-        this.props.onCompletedLoad();
+        this.props.onCompletedLoad(); // message parent that loading has completed
       });
 
+      // error message
       xhr.upload.addEventListener("error", (e) => {
         errorMessage.style.display = "block";
       });
 
+      // xhr request completed
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {
           console.log(xhr.response);
@@ -42,6 +51,7 @@ export default class WordInputUpload extends Component {
         }
       };
 
+      // xhr finish
       xhr.open(method, url);
       xhr.send(data);
     }

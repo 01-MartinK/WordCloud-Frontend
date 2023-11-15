@@ -1,12 +1,11 @@
 import { Component } from "react";
 import { FormControl, FormLabel, Input, Button} from '@mui/joy'
 
-import './style.scss'
-
 export default class AccessCodeInput extends Component {
+    
     onPressedGetData = (e) => {
         const code = document.querySelector('.accesscode').firstChild.value
-        this.props.callGet(code)
+        this.props.callWordlistFetch(code) // call the parent function
         e.preventDefault()
     }
 

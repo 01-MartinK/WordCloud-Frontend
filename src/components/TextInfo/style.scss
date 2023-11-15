@@ -3,7 +3,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    #status[textContent="Showing"] {
-        background-color: red;
+    #status {
+        margin-top: 2em;
+        padding: 0.5em 1em;
+        border-radius: 4px;
     }
 }

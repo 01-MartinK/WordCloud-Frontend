@@ -3,16 +3,22 @@ import { Component } from "react";
 import "./style.scss";
 
 export default class FileDropzone extends Component {
+  // drop file that mouse is carrying
   dropHandler = (e) => {
-    const allowedTypes = ['text/plain', 'application/json', 'application/msword'];
-
-    const fileInput = document.querySelector(".fileInput");
-    
-    console.log("file dropped");
     e.preventDefault();
 
+    const allowedTypes = [ // allowed types from drag
+      "text/plain",
+      "application/json",
+      "application/msword",
+    ];
+
+    // file input element
+    const fileInput = document.querySelector(".fileInput");
+    
     document.querySelector("#dropZone").classList.remove("entered");
 
+    // check files from mouse drop
     if (e.dataTransfer.items) {
       [...e.dataTransfer.items].forEach((item, i) => {
         if (item.kind == "file" && allowedTypes.includes(item.type)) {
@@ -20,14 +26,15 @@ export default class FileDropzone extends Component {
 
           fileInput.file = file;
 
-          console.log(file.type);
-          
-          document.querySelector('.error').style.display = "none"
+          // reset error
+          document.querySelector(".error").style.display = "none";
+          // set file name to label
           document.querySelector(".filename").textContent = file.name;
 
+          // console log the file for checking
           console.log(`... file[${i}].name = ${file.name}`);
-        }else {
-          document.querySelector('.error').style.display = "block"
+        } else {
+          document.querySelector(".error").style.display = "block";
         }
       });
     } else {
@@ -37,24 +44,23 @@ export default class FileDropzone extends Component {
       });
     }
   };
+  
+  // when mouse is hovering over box with file
+  dragOverHandler = (e) => {
+    document.querySelector("#dropZone").classList.add("entered");
+    e.preventDefault();
+  };
 
+  // when the mouse leaves with the file
+  dragLeaveHandler = (e) => {
+    document.querySelector("#dropZone").classList.remove("entered");
+    e.preventDefault();
+  };
+
+  // when file selected via dialog
   onSelectHandler = (e) => {
     const file = e.target.files[0];
     document.querySelector(".filename").textContent = file.name;
-    e.preventDefault();
-  };
-
-  dragOverHandler = (e) => {
-    e.preventDefault();
-    document.querySelector("#dropZone").classList.add("entered");
-  };
-
-  dragLeaveHandler = (e) => {
-    e.preventDefault();
-    document.querySelector("#dropZone").classList.remove("entered");
-  };
-
-  onUploadPressed = (e) => {
     e.preventDefault();
   };
 
