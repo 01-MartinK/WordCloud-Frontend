@@ -20,7 +20,7 @@ export default class WordInputUpload extends Component {
             const xhr = new XMLHttpRequest();
 
             const data = new FormData();
-            data.append("file", file)
+            data.append("document", file)
 
             xhr.upload.addEventListener('progress', e => {
                 this.props.onUpdateProgress(e.loaded, e.total);
@@ -34,6 +34,13 @@ export default class WordInputUpload extends Component {
                 errorMessage.style.display = "block"
             })
 
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                  console.log(xhr.response);
+                  window.alert("your access code for getting the wordcloud: "+xhr.response)
+                }
+              };
+
             xhr.open(method, url);
             xhr.send(data);
         }
@@ -44,8 +51,8 @@ export default class WordInputUpload extends Component {
             <div>
                 <FormLabel>Upload File</FormLabel>
                 <FileDropzone />
-                <p id="sizeError" className="error">TOO BIG OF A FILE</p>
-                <Button onClick={this.uploadFile} style={{marginBottom: "2em"}}>Analyze Text</Button>
+                <p id="sizeError" className="error">Your file exceeds 100mb</p>
+                {(this.props.showButton) ? <Button onClick={this.uploadFile} style={{marginBottom: "2em"}}>Analyze Text</Button> : null}
             </div>
         )
     }

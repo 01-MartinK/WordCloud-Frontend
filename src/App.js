@@ -19,7 +19,7 @@ function App() {
     setStatus("File Uploaded")
     setTimeout(() => {
       setProgress(0)
-    }, 2000)
+    }, 1000)
   }
 
   return (
@@ -27,9 +27,10 @@ function App() {
       <form className="main">
         <AccessCodeInput />
         <div className="deliminer" />
-        <WordInputUpload onUpdateProgress={updateProgressBar} onCompletedLoad={completedSend}/>
+        <WordInputUpload showButton={(progress === 0)} onUpdateProgress={updateProgressBar} onCompletedLoad={completedSend}/>
+        {(progress !== 0) ? <UploadProgressInfo progress={progress} status={status} showAccessCode={false}/> : null}
       </form>
-      {(progress !== 0) ? <UploadProgressInfo progress={progress} status={status} showAccessCode={false}/> : null}
+      
     </div>
   )
 }
