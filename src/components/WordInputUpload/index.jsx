@@ -48,7 +48,7 @@ export default class WordInputUpload extends Component {
 
     render() {
         return(
-            <div>
+            <div className="wordInputUplaod">
                 <FormLabel>Upload File</FormLabel>
                 <FileDropzone />
                 <p id="sizeError" className="error">Your file exceeds 100mb</p>

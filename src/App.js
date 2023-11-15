@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import AccessCodeInput from './components/AccessCodeInput'
 import WordInputUpload from './components/WordInputUpload'
 import UploadProgressInfo from './components/UploadProgressInfo'
+import TextInfo from './components/TextInfo'
 import './App.scss'
 
 function App() {
@@ -24,13 +24,12 @@ function App() {
 
   return (
     <div className="App">
+      <TextInfo />
       <form className="main">
-        <AccessCodeInput />
         <div className="deliminer" />
         <WordInputUpload showButton={(progress === 0)} onUpdateProgress={updateProgressBar} onCompletedLoad={completedSend}/>
         {(progress !== 0) ? <UploadProgressInfo progress={progress} status={status} showAccessCode={false}/> : null}
       </form>
-      
     </div>
   )
 }
