@@ -39,8 +39,7 @@ export default class WordInputUpload extends Component {
       data.append("document", file);
       
       let excluded = this.getExcludedWords()
-      if (excluded != null)
-        data.append("list", excluded);
+      data.append("list", excluded);
 
       console.log(data);
 
