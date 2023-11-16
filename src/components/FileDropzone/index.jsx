@@ -21,7 +21,7 @@ export default class FileDropzone extends Component {
     // check files from mouse drop
     if (e.dataTransfer.items) {
       [...e.dataTransfer.items].forEach((item, i) => {
-        if (item.kind == "file" && allowedTypes.includes(item.type)) {
+        if (item.kind === "file" && allowedTypes.includes(item.type)) {
           const file = item.getAsFile();
 
           fileInput.file = file;
