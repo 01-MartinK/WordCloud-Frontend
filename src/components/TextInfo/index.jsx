@@ -15,6 +15,7 @@ const wordcloud_options = {
     padding: 1,
     scale: "sqrt",
     transitionDuration: 1000,
+    rotations: 3,
     fontSizes: [8,16]
 }
 
